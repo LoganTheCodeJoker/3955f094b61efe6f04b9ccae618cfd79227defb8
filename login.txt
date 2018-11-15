@@ -1,24 +1,26 @@
 //login
-            //get users
+            //get users from file
             var x = System.IO.File.ReadAllText(@"[PATH NAME HERE]");
             var y = x.Split('\n');
-            string[] a = new string[3];
+            string[] a = new string[2];
             List<users> u = new List<users>();
             
             //create list of users
             foreach (var z in y)
             {
                 a = z.Split('|');
-                u.Add(new users(a[1], a[2]));
+                u.Add(new users(a[0], a[1]));
             }
 
             var s = Console.ReadLine(); <- input id here
             var c = Console.ReadLine(); <- input password here
             
             //validation
-            if (u.Contains(new users(s, c))){
-                Console.Out.WriteLine(new users(s, c));
-            }
+            if (u.Contains(new users(s, c)))
+                Console.Out.WriteLine(new users(s, c));  <- gib access
+            else
+                Console.Out.WriteLine("GTFO"); <- u have been hackz
+            
             
             
  //user datatype

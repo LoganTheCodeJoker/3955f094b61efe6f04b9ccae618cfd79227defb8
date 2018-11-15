@@ -1,0 +1,42 @@
+//login
+//get users
+            var x = System.IO.File.ReadAllText(@"[PATH NAME HERE]");
+            var y = x.Split('\n');
+            string[] a = new string[3];
+            List<users> u = new List<users>();
+            foreach (var z in y)
+            {
+                a = z.Split('|');
+                u.Add(new users(a[1], a[2]));
+            }
+
+            var s = Console.ReadLine();
+            var c = Console.ReadLine();
+            //validation
+            if (u.Contains(new users(s, c))){
+                Console.Out.WriteLine(new users(s, c));
+            }
+            
+            
+ //user datatype
+ public struct users
+    {
+        public string id;
+        public string password;
+
+        public users(string i, string p)
+        {
+            id = i;
+            password = p;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1}", id, password);
+        }
+    }
+            
+            
+            
+/*user file: 
+  id|password|

@@ -1,0 +1,17 @@
+create an order for warehouse 
+  - item
+  - quantity
+
+create an order for purchasing department
+  - item 
+  - quantity
+  
+create an order for logistics
+  - item
+  - quantity
+  - date
+  - date < invoice date + 7 ? in progress : delivered
+  
+payement class(?, listed in assignment)
+  
+  

@@ -44,5 +44,14 @@ namespace proj
                 name = value;
             }
         }
+
+        public int Quantity
+        {
+            get { return quantity; }
+            set
+            {
+                quantity = value;
+            }
+        }
     }
 }

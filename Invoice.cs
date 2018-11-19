@@ -17,20 +17,61 @@ namespace proj
         private Employee employee;
         private decimal total;
         private bool delivery;
+        private int payement;
 
-        public Invoice(Customer cust, List<checkOut> chckOut, Employee emp)
+        public string Payement
         {
+            get { switch (payement) { 
+                    case 0: return "Credit Card";
+                    case 1: return "Debit Card";
+                    case 2: return "Cash";
+                    case 3: return "Bank transfer";
+                    case 4: return "Cheque";
+                    default: return "Credit Account";
+                    }
+                }
+            set
+            {
+                payement = Int32.Parse(value);
+            }
+        }
+        
 
+        public Invoice(Customer cust, List<checkOut> chckOut, Employee emp, bool d)
+        {
+            id += 1;
             customer = cust;
             items = chckOut;
             employee = emp;
             date = new Date();
+            delivery = d;
 
         }  
 
         public Invoice()
         {
 
+        }
+
+        public String Delivery
+        {
+            get { return delivery ? "onthespot" : "shipping"; }
+            set
+            {
+                delivery = value.Equals("shipping")?true:false;
+            }
+        }
+
+        public string getItem()
+        {
+            if (delivery == false)
+                return Delivery + "/";
+            else
+            {
+                Date d = new Date();
+                return String.Format("{}/{}/{}/", Delivery, customer.Address, d.shipDate());
+
+            }
         }
 
         public void calcTotal()
@@ -48,17 +89,35 @@ namespace proj
 
         }
 
+        public void poorVIP()
+        {
+            Console.WriteLine("u poor bitch");
+
+        }
+
+        public bool pay()
+        {
+            if (payement.Equals("Credit"))
+            {
+                if (customer.Credit == Customer.CREDIT_LIMIT)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public string itemList()
         {
             string s = "";
             foreach (checkOut c in items)
                 s = s + c.item.Name + " " + c.quantity + "/";
-            return s;
+            return s + "\n";
         }
 
         public override string ToString()
         {
-            return String.Format("{} {} {} {} {} {}", id, customer, employee, date, itemList(), total);
+            return String.Format("{}/{}/{}/{}/{}/{}/{}/{}", id, customer, employee, date, itemList(), total, Payement, getItem());
         }
     }
 
@@ -75,6 +134,7 @@ namespace proj
 
         public decimal total()
         {
+            item.Quantity -= quantity;
             return item.Price + quantity;
         }
     }
